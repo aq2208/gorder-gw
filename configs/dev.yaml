@@ -1,5 +1,5 @@
 kafka:
-  brokers: ['127.0.0.1:9092']
+  brokers: ['localhost:9094']
   topic: 'order.status.changed'
 grpc_server:
   target: "localhost:50051"
