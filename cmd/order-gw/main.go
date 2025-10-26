@@ -18,10 +18,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = app.InitWithConfig(cfg)
+	app, cleanup, err := app.InitWithConfig(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer cleanup()
 
+	log.Printf("order-gw app (%s) started", app)
 	log.Printf("order-gw (%s) listening on %s", env, cfg.GrpcServer.ListenAddr)
 }

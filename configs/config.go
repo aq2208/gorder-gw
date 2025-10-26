@@ -32,14 +32,19 @@ type Config struct {
 		CAFile        string        `koanf:"ca_file"`
 		ShutdownGRace time.Duration `koanf:"shutdown_grace"`
 	} `koanf:"grpc_server"`
+
+	KafkaBroker struct {
+		KafkaBrokers []string `koanf:"brokers"`
+		KafkaTopic   string   `koanf:"topic"`
+	} `koanf:"kafka"`
 }
 
 func Load(pathDir, envName string) (Config, error) {
 	k := koanf.New(".")
 	// 1) base
-	if err := k.Load(file.Provider(fmt.Sprintf("%s/base.yaml", pathDir)), yaml.Parser()); err != nil {
-		return Config{}, fmt.Errorf("load base: %w", err)
-	}
+	//if err := k.Load(file.Provider(fmt.Sprintf("%s/base.yaml", pathDir)), yaml.Parser()); err != nil {
+	//	return Config{}, fmt.Errorf("load base: %w", err)
+	//}
 
 	// 2) env override (dev/staging/prod). Optional: allow missing for local runs.
 	_ = k.Load(file.Provider(fmt.Sprintf("%s/%s.yaml", pathDir, envName)), yaml.Parser())
@@ -65,8 +70,8 @@ func Load(pathDir, envName string) (Config, error) {
 }
 
 func (c Config) Validate() error {
-	if c.App.HTTPAddr == "" {
-		return fmt.Errorf("app.http_addr required")
-	}
+	//if c.App.HTTPAddr == "" {
+	//	return fmt.Errorf("app.http_addr required")
+	//}
 	return nil
 }

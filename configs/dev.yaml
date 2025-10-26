@@ -1,0 +1,7 @@
+kafka:
+  brokers: ['127.0.0.1:9092']
+  topic: 'order.status.changed'
+grpc_server:
+  target: "localhost:50051"
+  use_tls: false
+  timeout: "10s"
